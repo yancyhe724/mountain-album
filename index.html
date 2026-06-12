@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2026 爬山相册</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar" aria-label="主导航">
+        <a class="brand" href="#top" aria-label="回到顶部">
+          <span class="brand-mark">山</span>
+          <span>2026 爬山相册</span>
+        </a>
+        <div class="topbar-actions">
+          <a href="#timeline">时间线</a>
+          <a href="#gallery">照片墙</a>
+          <button class="ghost-button" id="exportButton" type="button">导出数据</button>
+        </div>
+      </nav>
+
+      <section class="hero-content" id="top">
+        <p class="eyebrow">记录今年每一次向上走</p>
+        <h1>把山顶、云海和路上的笑，都收进同一本相册。</h1>
+        <p class="hero-copy">
+          添加路线、日期、海拔、心情和照片。所有记录会保存在当前浏览器本地，适合先做自己的年度登山日志。
+        </p>
+        <div class="hero-actions">
+          <button class="primary-button" id="addTripHero" type="button">添加一次爬山</button>
+          <a class="secondary-button" href="#gallery">查看照片墙</a>
+        </div>
+      </section>
+      <p class="hero-credit">生成式首屏图 · 真实照片可在添加记录后替换</p>
+    </header>
+
+    <main>
+      <section class="stats-band" aria-label="年度统计">
+        <article>
+          <span id="tripCount">0</span>
+          <p>次爬山</p>
+        </article>
+        <article>
+          <span id="photoCount">0</span>
+          <p>张照片</p>
+        </article>
+        <article>
+          <span id="elevationTotal">0m</span>
+          <p>累计海拔</p>
+        </article>
+        <article>
+          <span id="favoriteMonth">-</span>
+          <p>最常出发月份</p>
+        </article>
+      </section>
+
+      <section class="controls" aria-label="筛选和添加">
+        <div>
+          <p class="section-kicker">今年的山</p>
+          <h2>登山记录</h2>
+        </div>
+        <div class="control-row">
+          <label class="select-label">
+            月份
+            <select id="monthFilter">
+              <option value="all">全年</option>
+            </select>
+          </label>
+          <button class="primary-button compact" id="addTripButton" type="button">添加记录</button>
+        </div>
+      </section>
+
+      <section class="timeline" id="timeline" aria-label="爬山时间线"></section>
+
+      <section class="gallery-section" id="gallery">
+        <div class="section-heading">
+          <p class="section-kicker">照片墙</p>
+          <h2>路上看见的光</h2>
+        </div>
+        <div class="gallery" id="photoGallery" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <dialog class="trip-dialog" id="tripDialog">
+      <form id="tripForm" method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <p class="section-kicker">新记录</p>
+            <h2>添加一次爬山</h2>
+          </div>
+          <button class="icon-button" id="closeDialog" type="button" aria-label="关闭">×</button>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            山名或路线
+            <input id="nameInput" name="name" required placeholder="例如：黄山西海大峡谷" />
+          </label>
+          <label>
+            日期
+            <input id="dateInput" name="date" required type="date" />
+          </label>
+          <label>
+            时间
+            <input id="timeInput" name="time" placeholder="例如：08:33-10:20" />
+          </label>
+          <label>
+            地点
+            <input id="placeInput" name="place" placeholder="例如：安徽黄山" />
+          </label>
+          <label>
+            海拔 / 爬升
+            <input id="elevationInput" name="elevation" min="0" placeholder="例如：1864" type="number" />
+          </label>
+        </div>
+
+        <label>
+          一句话记忆
+          <textarea id="noteInput" name="note" rows="3" placeholder="云从山谷涌上来，鞋底全是泥，但很开心。"></textarea>
+        </label>
+
+        <label class="upload-zone" for="photoInput">
+          <input id="photoInput" name="photos" type="file" accept="image/*" multiple />
+          <span>选择照片</span>
+          <small>可一次选择多张，图片会保存在当前浏览器本地。</small>
+        </label>
+        <div class="preview-grid" id="previewGrid" aria-label="照片预览"></div>
+
+        <div class="dialog-actions">
+          <button class="secondary-button" id="resetForm" type="reset">清空</button>
+          <button class="primary-button" type="submit">保存记录</button>
+        </div>
+      </form>
+    </dialog>
+
+    <template id="tripTemplate">
+      <article class="trip-card">
+        <div class="trip-image"></div>
+        <div class="trip-body">
+          <div class="trip-meta">
+            <time></time>
+            <span class="chip"></span>
+          </div>
+          <h3></h3>
+          <p></p>
+          <div class="trip-footer">
+            <span class="photo-badge"></span>
+            <button class="delete-button" type="button">删除</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
