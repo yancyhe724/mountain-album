@@ -71,7 +71,6 @@ const monthFilter = document.querySelector("#monthFilter");
 const previewGrid = document.querySelector("#previewGrid");
 const photoInput = document.querySelector("#photoInput");
 const dateInput = document.querySelector("#dateInput");
-const timeInput = document.querySelector("#timeInput");
 
 document.querySelector("#addTripButton").addEventListener("click", openDialog);
 document.querySelector("#addTripHero").addEventListener("click", openDialog);
@@ -99,7 +98,6 @@ tripForm.addEventListener("submit", (event) => {
     id: crypto.randomUUID(),
     name: formData.get("name").trim(),
     date: formData.get("date"),
-    time: formData.get("time").trim(),
     place: formData.get("place").trim() || "未填写地点",
     elevation: Number(formData.get("elevation")) || 0,
     note: formData.get("note").trim() || "这一天还没有写下备注。",
@@ -168,7 +166,6 @@ function openDialog() {
   tripForm.reset();
   state.pendingPhotos = [];
   dateInput.value = new Date().toISOString().slice(0, 10);
-  timeInput.value = "";
   renderPreview();
   tripDialog.showModal();
 }
